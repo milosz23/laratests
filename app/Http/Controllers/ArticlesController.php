@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use \Carbon\Carbon;
 
+
 use Request;
 
 use App\Article;
@@ -31,11 +32,24 @@ class ArticlesController extends Controller {
 		return view('articles.create');
 	}
 
-	public function store()
+
+
+	//validation with form request, need create class CreateArticleRequest with rules
+	public function store(\App\Http\Requests\CreateArticleRequest $request)
 	{		
-		Article::create(Request::all());
+		Article::create($request->all());
 
 		return redirect('articles');
 	}
+	
+	//validation with 'validate' with standard class and inline rules
+	// public function store(\Illuminate\Http\Request $request)
+	// {		
+	// 	$this->validate($request, ['title' => 'required']);
+
+	// 	Article::create($request->all());
+
+	// 	return redirect('articles');
+	// } 
 
 }
