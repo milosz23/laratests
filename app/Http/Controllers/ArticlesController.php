@@ -52,4 +52,25 @@ class ArticlesController extends Controller {
 	// 	return redirect('articles');
 	// } 
 
+
+	public function edit($article_id)
+	{
+		$article = Article::findOrFail($article_id);
+
+		return view('articles.edit')->with('article',$article);
+	}
+
+	public function update($id, \Illuminate\Http\Request $request)
+	{
+		$this->validate($request, ['title' => 'required']);//or use createarticle form request
+
+		$article = Article::findOrFail($id);
+
+		$article->update($request->all());
+
+		return redirect('articles');
+	}
+
+
+
 }
