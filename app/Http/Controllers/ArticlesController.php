@@ -37,7 +37,10 @@ class ArticlesController extends Controller {
 	//validation with form request, need create class CreateArticleRequest with rules
 	public function store(\App\Http\Requests\CreateArticleRequest $request)
 	{		
-		Article::create($request->all());
+		$article = new Article($request->all());
+
+		\Auth::user()->articles()->save($article); //create new article, user_id from registered user
+		//Article::create($request->all());
 
 		return redirect('articles');
 	}
