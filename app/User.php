@@ -43,4 +43,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->hasMany('App\Article');
 	}
 
+	//for middleware test
+	public function isATeamManager()
+	{
+		return true;
+	}
+
 }

@@ -11,6 +11,11 @@ use App\Article;
 
 class ArticlesController extends Controller {
 
+	public function __construct()
+	{
+		$this->middleware('auth', ['only' => 'create']);//only, except or none
+	}
+
 	public function index()
 	{
 		$articles = Article::latest()->published()->get();//published - scope, scopePublished
