@@ -12,5 +12,12 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.less('app.less');
+    mix.sass('app.scss');
+
+    mix.styles([
+    	'vendor/normalize.css',
+    	'app.css'
+    ],'public/output/final.css', 'public/css');//params - array of files to mix, output file, input folder
+
+    mix.phpUnit();
 });
