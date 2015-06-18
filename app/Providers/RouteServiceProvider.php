@@ -25,6 +25,9 @@ class RouteServiceProvider extends ServiceProvider {
 		//
 		
 		parent::boot($router);
+
+		//router model binding example - 'articles' wildcard in routes {'articles'}
+		$router->model('articles', 'App\Article');
 	}
 
 	/**
