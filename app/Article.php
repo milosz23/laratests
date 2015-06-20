@@ -33,6 +33,15 @@ class Article extends Model {
 		$this->belongsTo('App\User');
 	}
 
+	/**
+	 * get tags accosiated with given article
+	 */
+	public function tags()
+	{
+		return $this->belongsToMany('App\Tag')->withTimestamps();//work with pivot table with standard name, 
+		//if not - need to provide here pivot table name and id in that table
+	}
+
 
 
 }
