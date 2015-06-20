@@ -34,7 +34,8 @@ class ArticlesController extends Controller {
 
 	public function create()
 	{
-		return view('articles.create');
+		$tags = \App\Tag::lists('name','id');
+		return view('articles.create', compact('tags'));
 	}
 
 
@@ -42,10 +43,14 @@ class ArticlesController extends Controller {
 	//validation with form request, need create class CreateArticleRequest with rules
 	public function store(\App\Http\Requests\CreateArticleRequest $request)
 	{		
+		$tagIds = $request->input('tag_list');
+
 		$article = new Article($request->all());
 
 		\Auth::user()->articles()->save($article); //create new article, user_id from registered user
 		//Article::create($request->all());
+
+		$article->tags()->attach($tagIds);
 
 		return redirect('articles');
 	}
@@ -63,9 +68,10 @@ class ArticlesController extends Controller {
 
 	public function edit($article_id)
 	{
+		$tags = \App\Tag::lists('name','id');
 		$article = Article::findOrFail($article_id);
 
-		return view('articles.edit')->with('article',$article);
+		return view('articles.edit',compact('article','tags'));
 	}
 
 	public function update($id, \Illuminate\Http\Request $request)

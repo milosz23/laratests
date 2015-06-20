@@ -42,6 +42,12 @@ class Article extends Model {
 		//if not - need to provide here pivot table name and id in that table
 	}
 
+	//model binding with tag ids
+	public function getTagListAttribute()
+	{
+		return $this->tags()->lists('id');
+	}
+
 
 
 }
