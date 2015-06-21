@@ -43,14 +43,14 @@ class ArticlesController extends Controller {
 	//validation with form request, need create class CreateArticleRequest with rules
 	public function store(\App\Http\Requests\CreateArticleRequest $request)
 	{		
-		$tagIds = $request->input('tag_list');
+		// $tagIds = $request->input('tag_list');
 
 		$article = new Article($request->all());
 
 		\Auth::user()->articles()->save($article); //create new article, user_id from registered user
 		//Article::create($request->all());
 
-		$article->tags()->attach($tagIds);
+		$article->tags()->attach($request->input('tag_list'));
 
 		return redirect('articles');
 	}
@@ -81,6 +81,7 @@ class ArticlesController extends Controller {
 		$article = Article::findOrFail($id);
 
 		$article->update($request->all());
+		$article->tags()->sync($request->input('tag_list'));
 
 		return redirect('articles');
 	}
