@@ -15,9 +15,17 @@
 
 <div class="form-group">
 	{!! Form::label('tag_list', 'Tags:') !!}
-	{!! Form::select('tag_list[]', $tags, null, ['class'=>'form-control','multiple']) !!}
+	{!! Form::select('tag_list[]', $tags, null, ['id'=>'tag_list','class'=>'form-control','multiple']) !!}
 </div>
 
 <div class="form-group">
 	{!! Form::submit('Add Article', ['class'=>'btn btn-primary  form-control']) !!}
 </div>
+
+@section('footer')
+	<script>
+		$(function(){ 
+		    $('#tag_list').select2(); 
+		});
+	</script>
+@endsection
